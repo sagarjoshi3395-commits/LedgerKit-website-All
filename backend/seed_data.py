@@ -637,7 +637,9 @@ BOOKKEEPING_PRODUCT = {
     "status": "published",
     "is_add_on": False,
     "offer_end": None,
-    "download_files": [],
+    "download_files": [
+        {"title": "Business Bookkeeping System (Excel + Google Sheets + Video Tutorial)", "url": f"{SITE_BASE}/downloads/business-bookkeeping-system.pdf"},
+    ],
     "whats_included": [
         "Income & expense tracker",
         "Auto profit & loss statement",

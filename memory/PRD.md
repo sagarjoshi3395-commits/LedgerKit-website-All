@@ -124,3 +124,10 @@ See /app/memory/test_credentials.md.
 ## Update (2026-10-02, v28 — Combo price 449 → 299)
 - addons-combo-pack repriced ₹449 → ₹299 (seed sale_price + editions.digital.price; regular ₹595 kept; save ₹296)
 - Verified: /api/add-ons/combo → 299; combo checkout = 199 + 299 = ₹498 (real Razorpay order 49800p); browser shows combo row ₹299/Save ₹296, total ₹498, all CTAs (button/sticky/hero/final) at ₹498 live
+
+## Update (2026-10-06, v29 — Bookkeeping PDF wired + live email check queued)
+- Owner asked to "connect Resend" — integration was already live (managed proxy); root cause of "no email on purchase" was the Bookkeeping product having NO deliverable PDF (repo's PDF sits in static-site/assets/, missed earlier)
+- business-bookkeeping-system.pdf (104KB, links + video tutorial doc) copied to frontend/public/downloads/; BOOKKEEPING_PRODUCT.download_files now [{title, url: f"{SITE_BASE}/downloads/business-bookkeeping-system.pdf"}]
+- End-to-end verified (order ORD-5498D13D38 ₹290): create-order → signed verify → paid → email 202 delivered:true → download attached. Test sent to ledgerkitsupport@gmail.com
+- Resend note: emails route through Emergent-managed sending — owner's personal resend.com dashboard will NOT show these sends and no owner API key is needed
+- Deployer (production) check queued: EMERGENT_EMAIL_KEY/EMAIL_* in prod env + PDF URLs on live domain — result pending

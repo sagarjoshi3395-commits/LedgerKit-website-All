@@ -534,6 +534,14 @@ MEDICAL_BUNDLE_PRODUCT = {
 }
 
 
+_ADDON_FILES = {
+    "ecg-guide": ("ECG Reading Guide", "/downloads/ECG_Reading_Guide.pdf"),
+    "emergency-guide": ("Emergency Quick Reference Guide", "/downloads/Emergency_Quick_Reference_Guide.pdf"),
+    "ayurvedic-medicine-guide": ("Ayurvedic Medicine Guide", "/downloads/Ayurvedic_Medicine_Guide.pdf"),
+    "lab-report-guide": ("Lab Reports Decoded 2026", "/downloads/Lab-Reports-Decoded-2026.pdf"),
+}
+
+
 def _add_on(slug, title, price, tagline, description):
     """Hidden add-on guide: purchasable at checkout, excluded from store listings."""
     return {
@@ -558,7 +566,7 @@ def _add_on(slug, title, price, tagline, description):
         "status": "published",
         "is_add_on": True,
         "offer_end": None,
-        "download_files": [],
+        "download_files": [{"title": _f[0], "url": f"{SITE_BASE}{_f[1]}"} for _f in [_ADDON_FILES.get(slug)] if _f],
         "whats_included": [],
         "key_benefits": [],
         "bonuses": [],
@@ -710,7 +718,12 @@ COMBO_PRODUCT = {
     "is_add_on": True,
     "is_combo": True,
     "offer_end": None,
-    "download_files": [],
+    "download_files": [
+        {"title": "ECG Reading Guide", "url": f"{SITE_BASE}/downloads/ECG_Reading_Guide.pdf"},
+        {"title": "Emergency Quick Reference Guide", "url": f"{SITE_BASE}/downloads/Emergency_Quick_Reference_Guide.pdf"},
+        {"title": "Ayurvedic Medicine Guide", "url": f"{SITE_BASE}/downloads/Ayurvedic_Medicine_Guide.pdf"},
+        {"title": "Lab Reports Decoded 2026", "url": f"{SITE_BASE}/downloads/Lab-Reports-Decoded-2026.pdf"},
+    ],
     "whats_included": [],
     "key_benefits": [],
     "bonuses": [],

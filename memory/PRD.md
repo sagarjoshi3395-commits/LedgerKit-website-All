@@ -136,3 +136,9 @@ See /app/memory/test_credentials.md.
 - PROD EMERGENT_EMAIL_KEY almost certainly STALE (pre-correction LLM key value): prod secret VALUES are never overwritten by redeploys — only Secrets-UI edits change them. Live buyers' delivery emails would 401 "invalid X-Email-Key" → THIS is why live purchases send no email. FIX (owner): Deployment Panel → Secrets → edit EMERGENT_EMAIL_KEY to ek_a1825533e09ebb4852afcc3f18d98fae → Save → redeploy. EMAIL_FROM_NAME/EMAIL_REPLY_TO present in prod (values KMS-sealed, unverified).
 - business-bookkeeping-system.pdf MISSING on live (false 200 = SPA fallback): wired in preview AFTER last deploy → ships with next Deploy. Medical PDFs serve correctly on live (real application/pdf).
 - No separate Resend key needed; delivery via integrations.emergentagent.com proxy. INTEGRATION_PROXY_URL present in prod.
+
+## Update (2026-10-07, v30 — 4 add-on PDFs wired into delivery)
+- Owner uploaded 4/5 add-on PDFs → /downloads/ (ECG_Reading_Guide 1.2MB, Emergency_Quick_Reference_Guide 1MB, Ayurvedic_Medicine_Guide 7.6MB, Lab-Reports-Decoded-2026 2.4MB). Physiotherapy Clinical Guide PDF STILL PENDING.
+- seed_data: _ADDON_FILES map in _add_on helper → each add-on carries its download_files (absolute SITE_BASE url); combo download_files = the 4 PDFs (physio joins on upload)
+- Verified: /api/add-ons shows each file; combo 4 files; e2e ecg add-on order (ORD-1FF1CB5E0C ₹298): paid → delivered:true → downloads [Diseases, Medicine, ECG Reading Guide]
+- Buyer experience: add-on/individual purchases → email with per-file links + order-success page download buttons (downloads[] per order)

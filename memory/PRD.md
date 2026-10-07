@@ -131,3 +131,8 @@ See /app/memory/test_credentials.md.
 - End-to-end verified (order ORD-5498D13D38 ₹290): create-order → signed verify → paid → email 202 delivered:true → download attached. Test sent to ledgerkitsupport@gmail.com
 - Resend note: emails route through Emergent-managed sending — owner's personal resend.com dashboard will NOT show these sends and no owner API key is needed
 - Deployer (production) check queued: EMERGENT_EMAIL_KEY/EMAIL_* in prod env + PDF URLs on live domain — result pending
+
+## Deployer production RCA (2026-10-06)
+- PROD EMERGENT_EMAIL_KEY almost certainly STALE (pre-correction LLM key value): prod secret VALUES are never overwritten by redeploys — only Secrets-UI edits change them. Live buyers' delivery emails would 401 "invalid X-Email-Key" → THIS is why live purchases send no email. FIX (owner): Deployment Panel → Secrets → edit EMERGENT_EMAIL_KEY to ek_a1825533e09ebb4852afcc3f18d98fae → Save → redeploy. EMAIL_FROM_NAME/EMAIL_REPLY_TO present in prod (values KMS-sealed, unverified).
+- business-bookkeeping-system.pdf MISSING on live (false 200 = SPA fallback): wired in preview AFTER last deploy → ships with next Deploy. Medical PDFs serve correctly on live (real application/pdf).
+- No separate Resend key needed; delivery via integrations.emergentagent.com proxy. INTEGRATION_PROXY_URL present in prod.
